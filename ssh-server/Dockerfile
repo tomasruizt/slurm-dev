@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get install openssh-server sudo -y
 
 # change port and allow root login
-RUN echo "Port 9167" >> /etc/ssh/sshd_config
+RUN echo "Port 10123" >> /etc/ssh/sshd_config
 RUN echo "LogLevel DEBUG3" >> /etc/ssh/sshd_config
 
 RUN mkdir -p /run/sshd
@@ -18,6 +18,6 @@ RUN service ssh start
 RUN conda init
 
 # random arbitrary port
-EXPOSE 9167
+EXPOSE 10123
 
 CMD ["/usr/sbin/sshd", "-D", "-e"]
