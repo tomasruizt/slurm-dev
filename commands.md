@@ -11,7 +11,7 @@ srun --pty bash
 Import an enroot container:
 ```bash
 enroot import docker://ubuntu
-enroot import docker://tomasruiz/slurm-dev:1.0
+enroot import docker://tomasruiz/slurm-dev:1.1
 ```
 
 Create an enroot container:
@@ -47,7 +47,7 @@ scontrol show nodes
 srun -K \
     --container-mounts /dss/dsshome1/0D/di38bec/code/workspace:/workspace/ \
     --container-workdir=$(pwd) \
-    --container-image=/dss/dsshome1/0D/di38bec/tomasruiz+slurm-dev+1.0.sqsh \
+    --container-image=/dss/dsshome1/0D/di38bec/tomasruiz+slurm-dev+1.1.sqsh \
     --ntasks=1 \
     --nodes=1 \
     -p lrz-hgx-h100-92x4 \
@@ -68,7 +68,7 @@ openssl req -x509 -newkey rsa:4096 -days 365 -nodes \
 ```
 
 Start the VSCode server:
-````
+```shell
 srun \
   --container-image=/dss/dsshome1/0D/di38bec/pytorch+pytorch+2.4.0-cuda12.4-cudnn9-devel.sqsh \
   --container-mounts=/dss/dsshome1/0D/di38bec/code/netscratch/software:/netscratch/software:ro,"`pwd`":"`pwd`" \
