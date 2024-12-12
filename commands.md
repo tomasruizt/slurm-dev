@@ -1,6 +1,6 @@
 Allocate a GPU instance
 ```bash
-salloc -p lrz-hgx-h100-92x4 --gres=gpu:1
+salloc -p lrz-hgx-h100-92x4 --gres=gpu:1 --time=1:00:00
 ```
 
 Enter the GPU instance
@@ -16,12 +16,15 @@ enroot import docker://tomasruiz/slurm-dev:1.1
 
 Create an enroot container:
 ```bash
-enroot create --name my_container ubuntu.sqsh
+enroot create --name my_pt pytorch+pytorch+2.4.0-cuda12.4-cudnn9-devel.sqsh
 ```
 
 Enter a container, e.g. Pytorch
 ```bash
-enroot start --rw --root --mount /dss/dsshome1/0D/di38bec/code/workspace:/workspace/ pytorch+pytorch+2.4.0-cuda12.4-cudnn9-devel
+enroot start --rw --root \
+    --mount /dss/dsshome1/0D/di38bec/code:/workspace/code \
+    --mount /dss/dsshome1/0D/di38bec/datasets:/workspace/datasets \
+    my_pt
 ```
 
 Launch nohup Python process
