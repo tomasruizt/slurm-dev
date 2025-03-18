@@ -16,16 +16,15 @@ enroot import docker://tomasruiz/slurm-dev:1.1
 
 Create an enroot container:
 ```bash
-enroot create --name my_pt pytorch+pytorch+2.4.0-cuda12.4-cudnn9-devel.sqsh
-enroot create --name my_custom_pt custom_pytorch.sqsh
+enroot create --name my_custom_pt my_custom_pt.sqsh
 ```
 
 Enter a container, e.g. Pytorch
 ```bash
 enroot start --rw --root \
-    -e HOD_DATASET_ROOT=/root/datasets/HOD-Benchmark-Dataset \
     --mount /dss/dsshome1/0D/di38bec/code:/workspace/code \
     --mount /dss/dsshome1/0D/di38bec/datasets:/workspace/datasets \
+    --mount $DSS_HOME:$DSS_HOME \
     my_custom_pt
 ```
 
