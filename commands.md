@@ -28,6 +28,11 @@ enroot start --rw --root \
     my_custom_pt
 ```
 
+Show your GPU ussage in real time:
+```bash
+alias wgpu='watch -n0.1 nvidia-smi'
+```
+
 In case you are disconnected from a worker node/container, you can re-enter it with:
 ```bash
 sattach <job_id.0>
