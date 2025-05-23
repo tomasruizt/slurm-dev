@@ -1,6 +1,6 @@
 Allocate a GPU instance
 ```bash
-salloc -p lrz-hgx-h100-92x4 --gres=gpu:1 --time=4:00:00 --qos=gpu
+salloc --partition lrz-hgx-h100-92x4 --gres=gpu:1 --time=4:00:00 --qos=gpu
 ```
 
 Enter the GPU instance
@@ -16,7 +16,7 @@ enroot import docker://tomasruiz/slurm-dev:1.1
 
 Create an enroot container:
 ```bash
-enroot create --name my_custom_pt my_custom_pt.sqsh
+enroot create --name my_custom_pt $DSS_HOME/tomasruiz/my_custom_pt.sqsh
 ```
 
 Enter a container, e.g. Pytorch
@@ -40,6 +40,7 @@ sattach <job_id.0>
 
 export an enroot container to a sqsh file:
 ```bash
+cd $DSS_HOME/tomasruiz/
 enroot export -o my_custom_pt.sqsh my_custom_pt
 ```
 
@@ -63,17 +64,23 @@ show the gpus by node (search for lines like `AllocTRES=cpu=90,mem=600G,gres/gpu
 scontrol show nodes
 ```
 
+Run a synchronous job (This is not the same as a batch job, which is recommended for running long jobs).
+```bash
 srun -K \
-    --container-mounts /dss/dsshome1/0D/di38bec/code/workspace:/workspace/ \
+    --container-mounts /dss/dsshome1/0D/di38bec/code:/workspace/code \
+    --container-mounts /dss/dsshome1/0D/di38bec/datasets:/workspace/datasets \
+    --container-mounts $DSS_HOME:$DSS_HOME \
     --container-workdir=$(pwd) \
-    --container-image=/dss/dsshome1/0D/di38bec/tomasruiz+slurm-dev+1.1.sqsh \
+    --container-image=/dss/dsshome1/0D/di38bec/my_custom_pt.sqsh \
     --ntasks=1 \
     --nodes=1 \
-    -p lrz-hgx-h100-92x4 \
+    --partition=lrz-hgx-h100-94x4 \
     --gpus=1 \
-    --job-name tomas-slurm-dev-job \
+    --job-name test-job \
     --no-container-remap-root \
-    --time 1:00:00 /usr/sbin/sshd -D -e
+    --time 1:00:00 \
+    echo "Hello, world!"
+```
 
 squeue --me --name=<job name> --states=R -h -O NodeList
 
