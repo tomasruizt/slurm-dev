@@ -41,6 +41,7 @@ sattach <job_id.0>
 export an enroot container to a sqsh file:
 ```bash
 cd $DSS_HOME/tomasruiz/
+mv my_custom_pt.sqsh my_custom_pt.sqsh.bak
 enroot export -o my_custom_pt.sqsh my_custom_pt
 ```
 
