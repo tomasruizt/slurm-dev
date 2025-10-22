@@ -28,6 +28,12 @@ enroot start --rw --root \
     my_custom_pt
 ```
 
+Activate the Python venv:
+
+```bash
+. ~/ptvenv/bin/activate
+```
+
 Show your GPU ussage in real time:
 ```bash
 alias wgpu='watch -n0.1 nvidia-smi'
